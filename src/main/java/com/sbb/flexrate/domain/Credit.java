@@ -1,11 +1,14 @@
 package com.sbb.flexrate.domain;
 
 import com.sbb.flexrate.dto.CreditCreateRequestDto;
+import com.sbb.flexrate.member.Authority;
 import com.sbb.flexrate.member.Member;
 import com.sbb.flexrate.domain.Loan;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -48,7 +51,14 @@ public class Credit {
     private Double debt_rate;//부채비율
 
     //TODO: 범주형변수_ 수입유형, 고용유형, 자가소유유형
+//role 설정.. 근데 member와 일치할까?
+    @OneToMany(mappedBy = "credit")
+    private List<Authority> roles = new ArrayList<>();
 
+    public void setRoles(List<Authority> roles){
+        this.roles=roles;
+        roles.forEach(authority -> authority.setCredit(this));
+    }
     public static Credit from(CreditCreateRequestDto creditDto){
         return Credit.builder()
                 .existing_credit_score(creditDto.getExisting_credit_score())

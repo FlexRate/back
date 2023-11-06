@@ -1,11 +1,8 @@
 package com.sbb.flexrate.security;
 
-/*
-UserDetails 정보를 토대로 유저 정보 불러옴
- */
-
 import com.sbb.flexrate.member.Member;
 import com.sbb.flexrate.member.MemberRepository;
+import com.sbb.flexrate.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,11 +16,12 @@ public class JpaUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Member member=memberRepository.findByAccount(username).orElseThrow(
-                ()->new UsernameNotFoundException("Invalid authentication!")
+        Member member = memberRepository.findByAccount(username).orElseThrow(
+                () -> new UsernameNotFoundException("Invalid authentication!")
         );
+
         return new CustomUserDetails(member);
     }
 }

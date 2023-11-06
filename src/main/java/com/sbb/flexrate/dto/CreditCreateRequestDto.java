@@ -1,5 +1,7 @@
 package com.sbb.flexrate.dto;
 
+import com.sbb.flexrate.member.Authority;
+import com.sbb.flexrate.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import com.sbb.flexrate.domain.Credit;
 
 import javax.persistence.Column;
+import java.util.List;
 
 /*
 credit생성( DTO
@@ -16,6 +19,7 @@ credit생성( DTO
 @NoArgsConstructor
 @Builder
 public class CreditCreateRequestDto{
+    private Member member;//멤버를 새로 생성해버리네 미친
     private Long existing_credit_score;
     private Long yearly_income;
     private Long company_month;

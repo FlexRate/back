@@ -1,5 +1,9 @@
-package com.sbb.flexrate.member;
+package com.sbb.flexrate.controller;
 
+import com.sbb.flexrate.member.MemberRepository;
+import com.sbb.flexrate.member.SignRequest;
+import com.sbb.flexrate.member.SignResponse;
+import com.sbb.flexrate.member.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

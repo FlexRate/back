@@ -15,7 +15,7 @@ loan생성 DTO_수정 필요
 @NoArgsConstructor
 @Builder
 public class LoanCreateRequestDto {
-//    private Member member;
+    //    private Member member;
     private Credit credit;
 
     private Date birth_year=credit.getMember().getBirth();

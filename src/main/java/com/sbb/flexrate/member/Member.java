@@ -25,7 +25,6 @@ public class Member {
     @OneToOne(mappedBy ="member",cascade = CascadeType.ALL) //변경사항 모두 반영
     private Credit credit;
 
-
     @Column(unique = true)
     private String account; //토큰 Service 통해 자동 발급
 
@@ -53,9 +52,10 @@ public class Member {
     @Builder.Default//빌더 패턴 생성
     private List<Authority> roles=new ArrayList<>();
 
-    public void setRoles(List<Authority> role){
+    public void setRoles(List<Authority> role,Credit credit){
         this.roles=role;
-        role.forEach(o->o.setMember(this));
+        role.forEach(o -> o.setMember(this));
+        credit.setRoles(role);
         //Authority 엔터티 순회하며 setMember 메서드 호출
     }
 }
