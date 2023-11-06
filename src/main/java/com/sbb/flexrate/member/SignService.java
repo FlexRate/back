@@ -29,9 +29,13 @@ public class SignService {
         return SignResponse.builder()
                 .id(member.getId())
                 .account(member.getAccount())
+                .address(member.getAddress())
+                .birth(member.getBirth())
                 .name(member.getName())
                 .email(member.getEmail())
                 .nickname(member.getNickname())
+                .phonenumber(member.getPhonenumber())
+                .gender(member.getGender())
                 .roles(member.getRoles())
                 .token(jwtProvider.createToken(member.getAccount(), member.getRoles()))
                 .build();
@@ -46,6 +50,10 @@ public class SignService {
                     .name(request.getName())
                     .nickname(request.getNickname())
                     .email(request.getEmail())
+                    .address(request.getAddress())
+                    .birth(request.getBirth())
+                    .phonenumber(request.getPhonenumber())
+                    .gender(request.getGender())
                     .build();
 
             member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));

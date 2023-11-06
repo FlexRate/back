@@ -3,30 +3,31 @@ package com.sbb.flexrate.member;
 import java.util.Date;
 import java.util.List;
 
-import com.sbb.flexrate.dashboard.Dashboard;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.sbb.flexrate.domain.Credit;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
+@Setter
 @Getter
 @Builder
-@AllArgsConstructor @NoArgsConstructor
-//AllArgsCon~ : 모든 클래스 필드 매개변수로 하는 생성자 자동 생성
-//NoArgsCon~ : 매개변수 없는 기본 생성자 자동 생성
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "member")
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne(mappedBy ="member",cascade = CascadeType.ALL) //변경사항 모두 반영
+    private Credit credit;
+
+
     @Column(unique = true)
-    private String account;
+    private String account; //토큰 Service 통해 자동 발급
 
     private String password;
 
@@ -36,7 +37,7 @@ public class Member {
 
     private Date birth;
 
-    private Character sex;
+    private Boolean gender;
 
     private String phonenumber;
 
@@ -51,9 +52,6 @@ public class Member {
     //Lazy: 실제로 데이터에 접근할 때까지 로드하지 않음
     @Builder.Default//빌더 패턴 생성
     private List<Authority> roles=new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Dashboard> dashboards;
 
     public void setRoles(List<Authority> role){
         this.roles=role;

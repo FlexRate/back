@@ -27,7 +27,7 @@ public class SignResponse {
 
     private Date birth;
 
-    private Character sex;
+    private Boolean gender;
 
     private String phonenumber;
 
@@ -40,9 +40,13 @@ public class SignResponse {
     public SignResponse(Member member){
         this.id=member.getId();
         this.account=member.getAccount();
+        this.address=member.getAddress();
+        this.birth=member.getBirth();
         this.nickname=member.getNickname();
         this.name=member.getName();
         this.email=member.getEmail();
+        this.phonenumber=member.getPhonenumber();
+        this.gender=member.getGender();
         this.roles=member.getRoles();
     }
 }

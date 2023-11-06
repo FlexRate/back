@@ -27,14 +27,10 @@ public class SignRequest {
 
     private Date birth;
 
-    private Character sex;
+    private Boolean gender;
 
     private String phonenumber;
 
     private String address;
 
 }
-//생년월일
-//성별
-//휴대폰 번호
-//주소
