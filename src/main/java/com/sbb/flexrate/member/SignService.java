@@ -1,5 +1,7 @@
 package com.sbb.flexrate.member;
 
+import com.sbb.flexrate.domain.Credit;
+import com.sbb.flexrate.domain.Loan;
 import com.sbb.flexrate.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -56,8 +58,21 @@ public class SignService {
                     .gender(request.getGender())
                     .build();
 
-            member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
+            Credit credit=Credit.builder()
+                            .member(member)
+                                    .build();
 
+            Loan loan=Loan.builder()
+                            .member(member)
+                    .birth_year(member.getBirth())
+                    .gender(member.getGender())
+                    .korea_interest_rate(3.5f)
+                    .index_pc(1.223714f)
+                                    .build();
+
+            member.setLoan(loan);
+            member.setCredit(credit);
+            member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
             memberRepository.save(member);
         } catch (Exception e) {
             System.out.println(e.getMessage());

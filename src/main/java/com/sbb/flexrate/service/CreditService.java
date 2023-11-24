@@ -37,23 +37,6 @@ public class CreditService {
     }
 
  */
-/*
-    //credit 생성
-    public Credit createcredit(CreditCreateRequestDto creditDto){
-        Credit credit=Credit.builder()
-                .member(creditDto.getMember())
-                .roles(creditDto.getMember().getRoles())
-                .existing_credit_score(creditDto.getExisting_credit_score())
-                .yearly_income(creditDto.getYearly_income())
-                .company_month(creditDto.getCompany_month())
-                .loan_cnt(creditDto.getLoan_cnt())
-                .loan_amount(creditDto.getLoan_amount())
-                .debt_rate(creditDto.getDebt_rate())
-                .build();
-        return creditRepository.save(credit);
-    }
- */
-
     //credit 수정
     public void updateCredit(Long memberId,CreditCreateRequestDto creditDto){
         Optional<Member> member=memberRepository.findById(memberId);
@@ -61,19 +44,20 @@ public class CreditService {
             Optional<Credit> optionalCredit=creditRepository.findByMemberId(memberId);
             if(optionalCredit.isPresent()){
                 Credit credit=optionalCredit.get();
-                credit.setRoles(creditDto.getMember().getRoles());//멤버와 동일한 권한 부여
+                credit.setExisting_credit_score(creditDto.getExisting_credit_score());
                 credit.setExisting_credit_score(creditDto.getExisting_credit_score());
                 credit.setYearly_income(creditDto.getYearly_income());
                 credit.setCompany_month(creditDto.getCompany_month());
                 credit.setLoan_cnt(creditDto.getLoan_cnt());
                 credit.setLoan_amount(creditDto.getLoan_amount());
+                credit.setDebt_rate(creditDto.getDebt_rate());
                 creditRepository.save(credit);
             }else {//member의 credit조회 실패
                 System.out.println(memberId);
-                throw new DataNotFoundException("Credit not found for this member");
+                throw new DataNotFoundException("해당 Member의 Credit 조회 실패");
             }
         }else {//member조회 실패
-            throw new DataNotFoundException("Member not found");
+            throw new DataNotFoundException("Member 조회 실패");
         }
     }
 
@@ -82,6 +66,6 @@ public class CreditService {
         if(member.isPresent()){
             Credit credit=member.get().getCredit();;
             return CreditInfoDto.from(credit);
-        }else throw new DataNotFoundException("Member not found");
+        }else throw new DataNotFoundException("Member 조회 실패");
     }
 }
