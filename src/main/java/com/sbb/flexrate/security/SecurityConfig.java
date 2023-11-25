@@ -99,7 +99,7 @@ public class SecurityConfig {
         //{noop}asd34d*^ 과 같이 password 앞에 encoding 방식 붙은 채로 저장-> 엄호화 방식 지정 저장 가능
     }
 
-        @Bean
+    @Bean
     public Docket creditApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("credit") // 그룹 이름을 명시적으로 지정
