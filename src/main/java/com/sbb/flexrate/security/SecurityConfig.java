@@ -98,4 +98,24 @@ public class SecurityConfig {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         //{noop}asd34d*^ 과 같이 password 앞에 encoding 방식 붙은 채로 저장-> 엄호화 방식 지정 저장 가능
     }
+
+        @Bean
+    public Docket creditApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("credit") // 그룹 이름을 명시적으로 지정
+                .apiInfo(apiInfo())
+                .select()
+                .paths(path -> path.startsWith("/credit"))
+                .build();
+    }
+
+    @Bean
+    public Docket signApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("sign") // 그룹 이름을 명시적으로 지정
+                .apiInfo(apiInfo())
+                .select()
+                .paths(path -> path.startsWith("/login") || path.startsWith("/register") || path.startsWith("/user") || path.startsWith("/admin"))
+                .build();
+    }
 }
