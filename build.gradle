@@ -7,9 +7,9 @@ plugins {
 group = 'com.sbb'
 version = '0.0.1-SNAPSHOT'
 
-//java {
-//	sourceCompatibility = '11'
-//}
+java {
+	sourceCompatibility = '11'
+}
 
 configurations {
 	compileOnly {
