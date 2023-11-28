@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("*") // 모든 HTTP 메서드 허용
                 .allowedHeaders("*"); // 모든 헤더 허용
 //                .allowedOriginPatterns("*") // 패턴을 사용하여 오리진 허용 모두허용
-//                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+//                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")//
 //                .allowCredentials(true); // 쿠키를 포함한 요청 허용
     }
 
