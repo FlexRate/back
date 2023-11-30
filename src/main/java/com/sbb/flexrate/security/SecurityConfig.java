@@ -48,6 +48,9 @@ public class SecurityConfig {
                                 config.setAllowedMethods(
                                         List.of("*")
                                 );
+                                config.setAllowedHeaders(
+                                        List.of("*")
+                                );
                                 return config;
                             };
                             c.configurationSource(source);
@@ -98,4 +101,8 @@ public class SecurityConfig {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         //{noop}asd34d*^ 과 같이 password 앞에 encoding 방식 붙은 채로 저장-> 엄호화 방식 지정 저장 가능
     }
+
+
 }
+
+
