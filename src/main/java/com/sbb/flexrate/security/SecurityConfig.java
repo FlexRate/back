@@ -37,29 +37,6 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 // 쿠키 기반이 아닌 JWT 기반이므로 사용하지 않음
                 .csrf().disable()
-                // CORS 설정
-                .cors(c -> {
-                            CorsConfigurationSource source = request -> {
-                                // Cors 허용 패턴
-                                CorsConfiguration config = new CorsConfiguration();
-                                config.setAllowedOrigins(
-                                        List.of("http://localhost:5173","http://localhost:8080")
-                                );
-                                config.setAllowedMethods(
-                                        List.of("GET", "POST","PATCH","PUT","DELETE","OPTIONS")
-                                );
-                                config.setAllowedHeaders(
-                                        List.of("*")
-                                );
-                                config.setExposedHeaders(
-                                        List.of("Authorization")
-                                );
-                                config.setAllowCredentials(true);
-                                return config;
-                            };
-                            c.configurationSource(source);
-                        }
-                )
                 // Spring Security 세션 정책 : 세션을 생성 및 사용하지 않음
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -73,6 +50,30 @@ public class SecurityConfig {
                 .antMatchers("/**").hasRole("USER")
                 .anyRequest().denyAll()
                 .and()
+                //cors 설정
+                .cors(c -> {
+                            CorsConfigurationSource source = request -> {
+                                // Cors 허용 패턴
+                                CorsConfiguration config = new CorsConfiguration();
+                                config.setAllowedOrigins(
+                                        List.of("http://localhost:5173","http://localhost:8080")
+                                );
+                                config.setAllowedMethods(
+                                        List.of("GET", "POST","PATCH","PUT","DELETE","OPTIONS")
+                                );
+                                config.setAllowedHeaders(
+                                        List.of("*")
+                                );
+//                                config.setExposedHeaders(
+//                                        List.of("Authorization")
+//                                );
+                                config.setAllowCredentials(true);
+                                return config;
+                            };
+                            c.configurationSource(source);
+                        }
+                );
+        http
                 // JWT 인증 필터 적용, 인증 처리 기본필터 username~
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
                 // 에러 핸들링
