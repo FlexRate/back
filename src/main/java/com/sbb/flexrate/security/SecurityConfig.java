@@ -46,10 +46,13 @@ public class SecurityConfig {
                                         List.of("http://localhost:5173","http://localhost:8080")
                                 );
                                 config.setAllowedMethods(
-                                        List.of("GET", "POST","PATCH","PUT","OPTIONS")
+                                        List.of("GET", "POST","PATCH","PUT","DELETE","OPTIONS")
                                 );
                                 config.setAllowedHeaders(
                                         List.of("*")
+                                );
+                                config.setExposedHeaders(
+                                        List.of("Authorization")
                                 );
                                 config.setAllowCredentials(true);
                                 return config;
