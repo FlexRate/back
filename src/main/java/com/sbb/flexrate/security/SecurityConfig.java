@@ -43,7 +43,7 @@ public class SecurityConfig {
                                 // Cors 허용 패턴
                                 CorsConfiguration config = new CorsConfiguration();
                                 config.setAllowedOrigins(
-                                        List.of("*")
+                                        List.of("http://localhost:5173") //wildcard 불가
                                 );
                                 config.setAllowedMethods(
                                         List.of("GET", "POST","PATCH","PUT","OPTIONS")
