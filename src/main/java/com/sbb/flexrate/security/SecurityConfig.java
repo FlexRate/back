@@ -46,7 +46,7 @@ public class SecurityConfig {
                                         List.of("*")
                                 );
                                 config.setAllowedMethods(
-                                        List.of("*")
+                                        List.of("GET", "POST","PATCH","PUT","OPTIONS")
                                 );
                                 config.setAllowedHeaders(
                                         List.of("*")
