@@ -43,7 +43,7 @@ public class SecurityConfig {
                                 // Cors 허용 패턴
                                 CorsConfiguration config = new CorsConfiguration();
                                 config.setAllowedOrigins(
-                                        List.of("*")
+                                        List.of("http://localhost:5173","http://localhost:8080")
                                 );
                                 config.setAllowedMethods(
                                         List.of("GET", "POST","PATCH","PUT","OPTIONS")
@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 config.setAllowedHeaders(
                                         List.of("*")
                                 );
+                                config.setAllowCredentials(true);
                                 return config;
                             };
                             c.configurationSource(source);
