@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -16,6 +17,8 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.security.authentication.BadCredentialsException;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -43,12 +46,12 @@ public class SecurityConfig {
                 // 조건별로 요청 허용/제한 설정
                 .authorizeRequests()
                 // 회원가입과 로그인은 모두 승인
-                .antMatchers("/login", "/register","/main/**").permitAll()
+                .antMatchers("/login", "/register", "/main/**").permitAll()
                 //admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
                 .antMatchers("/admin").hasRole("ADMIN")
                 // /user 로 시작하는 요청은 USER 권한이 있는 유저에게만 허용
                 .antMatchers("/**").hasRole("USER")
-                .anyRequest().denyAll()
+                .anyRequest().denyAll() //이래도 되나
                 .and()
                 //cors 설정
                 .cors(c -> {
@@ -56,10 +59,10 @@ public class SecurityConfig {
                                 // Cors 허용 패턴
                                 CorsConfiguration config = new CorsConfiguration();
                                 config.setAllowedOrigins(
-                                        List.of("http://localhost:5173","http://localhost:8080")
+                                        List.of("http://localhost:5173", "http://localhost:8080")
                                 );
                                 config.setAllowedMethods(
-                                        List.of("GET", "POST","PATCH","PUT","DELETE","OPTIONS")
+                                        List.of("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS")
                                 );
                                 config.setAllowedHeaders(
                                         List.of("*")
@@ -91,23 +94,28 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new AuthenticationEntryPoint() {
                     @Override
                     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-                        //인증 문제 발생 시 이 부분 호출
                         response.setStatus(401);
                         response.setCharacterEncoding("utf-8");
                         response.setContentType("text/html;charset=UTF-8");
-                        response.getWriter().write("인증되지 않은 사용자입니다");
+
+                        if (authException instanceof BadCredentialsException) {
+                            if (authException.getCause() instanceof UsernameNotFoundException) {
+                                response.getWriter().write("잘못된 아이디입니다.");
+                            } else {
+                                response.getWriter().write("잘못된 비밀번호입니다.");
+                            }
+                        } else {
+                            response.getWriter().write("잘못된 아이디입니다.");
+                        }
                     }
                 });
+
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         //{noop}asd34d*^ 과 같이 password 앞에 encoding 방식 붙은 채로 저장-> 엄호화 방식 지정 저장 가능
     }
-
-
 }
-
-
