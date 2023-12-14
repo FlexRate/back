@@ -105,7 +105,7 @@ public class SecurityConfig {
                                 response.getWriter().write("잘못된 비밀번호입니다.");
                             }
                         } else {
-                            response.getWriter().write("잘못된 아이디입니다.");
+                            response.getWriter().write("인증되지 않은 사용자입니다.");
                         }
                     }
                 });
