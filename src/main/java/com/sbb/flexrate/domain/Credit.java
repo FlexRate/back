@@ -1,6 +1,8 @@
 package com.sbb.flexrate.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.sbb.flexrate.dto.CreditCreateRequestDto;
+import com.sbb.flexrate.enums.*;
 import com.sbb.flexrate.member.Authority;
 import com.sbb.flexrate.member.Member;
 import com.sbb.flexrate.domain.Loan;
@@ -8,7 +10,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 
 @Getter
 @Setter
@@ -27,34 +31,51 @@ public class Credit {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(name="credit_score")
-    private Long existing_credit_score;//사용자 기존 신용 점수
+    @Column(name="credit_info")
+    private BusinessType business_type; //업종
 
     @Column
-    private Long yearly_income;//연수입
+    private EmploymentType employment_type; //고용형태
 
     @Column
-    private Long company_month;//근무월수
+    private String company_enter_month; //입사년월
 
     @Column
-    private Long loan_cnt;//이미 대출하고 있는 건 수
+    private String academic_ability_school; //학력(학교명)
 
     @Column
-    private Long loan_amount;//이미 대출하고 있는 금액
+    private AcademicAbility academic_ability; //학력선택
 
     @Column
-    private Double debt_rate;//부채비율
+    private Long yearly_income; //연소득
 
-    //TODO: 범주형변수_ 수입유형, 고용유형, 자가소유유형
+    @Column
+    private Long credit_score; //신용등급
+
+    @Column
+    private HouseownType houseown_type; //주거 정보
+
+    @Column
+    private Boolean personal_rehabilitation_yn; //개인회생자 여부
+
+    @Column
+    private Boolean personal_rehabilitation_complete_yn; //개인회생자 납부 여부
+
+    @Column
+    private LoanPurpose loan_purpose; //대출 목적
 
     public static Credit from(CreditCreateRequestDto creditDto){
         return Credit.builder()
-                .existing_credit_score(creditDto.getExisting_credit_score())
+                .business_type(creditDto.getBusiness_type())
+                .employment_type(creditDto.getEmployment_type())
+                .company_enter_month(creditDto.getCompany_enter_month())
+                .academic_ability_school(creditDto.getAcademic_ability_school())
                 .yearly_income(creditDto.getYearly_income())
-                .company_month(creditDto.getCompany_month())
-                .loan_cnt(creditDto.getLoan_cnt())
-                .loan_amount(creditDto.getLoan_amount())
-                .debt_rate(creditDto.getDebt_rate())
+                .credit_score(creditDto.getCredit_score())
+                .houseown_type(creditDto.getHouseown_type())
+                .personal_rehabilitation_yn(creditDto.getPersonal_rehabilitation_yn())
+                .personal_rehabilitation_complete_yn(creditDto.getPersonal_rehabilitation_complete_yn())
+                .loan_purpose(creditDto.getLoan_purpose())
                 .build();
-    }
+        }
 }

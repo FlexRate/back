@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 public class LoanCreateRequestDto {
     private Member member;
-    private Date birth_year;//새로 받는건 아니지 않을까?
+    private String birth_year;//새로 받는건 아니지 않을까?
     private Boolean gender;
     private Long credit_score;
     private Long yearly_income;

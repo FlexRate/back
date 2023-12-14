@@ -6,6 +6,7 @@ import java.util.List;
 import com.sbb.flexrate.domain.Credit;
 import com.sbb.flexrate.domain.Loan;
 import lombok.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,24 +30,30 @@ public class Member {
     @OneToOne(mappedBy = "member",cascade = CascadeType.ALL)
     private Loan loan;
 
+
+    @NonNull
     @Column(unique = true)
     private String account; //토큰 Service 통해 자동 발급
 
+    @NonNull
     private String password;
 
-    private String nickname;
-
+    @NonNull
     private String name;
 
-    private Date birth;
+    @NonNull
+    private String birth;
 
+    @NonNull
     private Boolean gender;
 
+    @NonNull
+    private Boolean nationality;
+
+    @NonNull
     private String phonenumber;
 
-    private String address;
-
-    @Column(unique = true)
+    @NonNull
     private String email;
 
     //fetch_속성 데이터 어떻게 로드 할 지_즉시 로드
@@ -63,5 +70,5 @@ public class Member {
 }
 
 /*
-사용자: 아이디, account, 비밀번호, 닉네임, 이름, 이메일, 권한(목록)
+사용자: 아이디, account, 비밀번호, 국적, 성별, 생일, 이름, 이메일, 번호, 권한(목록)
  */

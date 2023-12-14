@@ -44,13 +44,16 @@ public class CreditService {
             Optional<Credit> optionalCredit=creditRepository.findByMemberId(memberId);
             if(optionalCredit.isPresent()){
                 Credit credit=optionalCredit.get();
-                credit.setExisting_credit_score(creditDto.getExisting_credit_score());
-                credit.setExisting_credit_score(creditDto.getExisting_credit_score());
+                credit.setBusiness_type(creditDto.getBusiness_type());
+                credit.setEmployment_type(creditDto.getEmployment_type());
+                credit.setCompany_enter_month(creditDto.getCompany_enter_month());
+                credit.setAcademic_ability_school(creditDto.getAcademic_ability_school());
                 credit.setYearly_income(creditDto.getYearly_income());
-                credit.setCompany_month(creditDto.getCompany_month());
-                credit.setLoan_cnt(creditDto.getLoan_cnt());
-                credit.setLoan_amount(creditDto.getLoan_amount());
-                credit.setDebt_rate(creditDto.getDebt_rate());
+                credit.setCredit_score(creditDto.getCredit_score());
+                credit.setHouseown_type(creditDto.getHouseown_type());
+                credit.setPersonal_rehabilitation_yn(creditDto.getPersonal_rehabilitation_yn());
+                credit.setPersonal_rehabilitation_complete_yn(creditDto.getPersonal_rehabilitation_complete_yn());
+                credit.setLoan_purpose(creditDto.getLoan_purpose());
                 creditRepository.save(credit);
             }else {//member의 credit조회 실패
                 System.out.println(memberId);

@@ -28,7 +28,7 @@
         //************member class***********
 
         @Column
-        private Date birth_year;
+        private String birth_year;
 
         @Column
         private Boolean gender;

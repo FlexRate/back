@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class LoanInfoDto {
-    private Date birth_year;
+    private String birth_year;
     private Boolean gender;
     private Long yearly_income;
     private Long loan_cnt;

@@ -37,3 +37,4 @@ public class Authority {
     }
 //    public void setCredit(Credit credit){this.credit=credit;}
 }
+

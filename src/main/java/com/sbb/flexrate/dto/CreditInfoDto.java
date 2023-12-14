@@ -1,33 +1,55 @@
 package com.sbb.flexrate.dto;
 
 import com.sbb.flexrate.domain.Credit;
+import com.sbb.flexrate.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import java.util.Date;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class CreditInfoDto {//마이페이지 credit 정보
-    private Long existing_credit_score;//사용자 기존 신용 점수
-    private Long yearly_income;
-    private Long company_month;//근무월수
-    private Long loan_cnt;//이미 대출하고 있는 건 수
-    private Long loan_amount;//이미 대출하고 있는 금액
-    private Double debt_rate;//부채비율
 
-    public static CreditInfoDto from(Credit credit){//객체 생성해서 return
+    private BusinessType business_type; //업종
+
+    private EmploymentType employment_type; //고용형태
+
+    private String company_enter_month; //입사년월
+
+    private String academic_ability_school; //학력(학교명)
+
+    private AcademicAbility academic_ability; //학력선택
+
+    private Long yearly_income; //연소득
+
+    private Long credit_score; //신용등급
+
+    private HouseownType houseown_type; //주거 정보
+
+    private Boolean personal_rehabilitation_yn; //개인회생자 여부
+
+    private Boolean personal_rehabilitation_complete_yn; //개인회생자 납부 여부
+
+    private LoanPurpose loan_purpose; //대출 목적
+
+    public static CreditInfoDto from(Credit credit) {//객체 생성해서 return
         return CreditInfoDto.builder()
-                .existing_credit_score(credit.getExisting_credit_score())
+                .business_type(credit.getBusiness_type())
+                .employment_type(credit.getEmployment_type())
+                .company_enter_month(credit.getCompany_enter_month())
+                .academic_ability_school(credit.getAcademic_ability_school())
                 .yearly_income(credit.getYearly_income())
-                .company_month(credit.getCompany_month())
-                .loan_cnt(credit.getLoan_cnt())
-                .loan_amount(credit.getLoan_amount())
-                .debt_rate(credit.getDebt_rate())
+                .credit_score(credit.getCredit_score())
+                .houseown_type(credit.getHouseown_type())
+                .personal_rehabilitation_yn(credit.getPersonal_rehabilitation_yn())
+                .personal_rehabilitation_complete_yn(credit.getPersonal_rehabilitation_complete_yn())
+                .loan_purpose(credit.getLoan_purpose())
                 .build();
     }
 }

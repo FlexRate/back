@@ -68,7 +68,7 @@ public class CreditController {
     public ResponseEntity<?> updateCredit(@PathVariable Long memberId, @RequestBody CreditCreateRequestDto creditDto){
         try {
             creditService.updateCredit(memberId,creditDto);
-            return ResponseEntity.ok("Credit 업데이트 성공");
+            return new ResponseEntity<>(creditService.getCreditInfo(memberId), HttpStatus.OK);
         }catch (DataNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

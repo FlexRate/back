@@ -1,5 +1,8 @@
 package com.sbb.flexrate.dto;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.sbb.flexrate.enums.*;
 import com.sbb.flexrate.member.Authority;
 import com.sbb.flexrate.member.Member;
 import lombok.AllArgsConstructor;
@@ -9,6 +12,8 @@ import lombok.NoArgsConstructor;
 import com.sbb.flexrate.domain.Credit;
 
 import javax.persistence.Column;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -18,14 +23,32 @@ credit생성( DTO
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreditCreateRequestDto{
+public class CreditCreateRequestDto {
+
     private Member member;
-    private Long existing_credit_score;
-    private Long yearly_income;
-    private Long company_month;
-    private Long loan_cnt;
-    private Long loan_amount;
-    private Double debt_rate;
+
+    private BusinessType business_type; //업종
+
+    private EmploymentType employment_type; //고용형태
+
+    private String company_enter_month; //입사년월
+
+    private String academic_ability_school; //학력(학교명)
+
+    private AcademicAbility academic_ability; //학력선택
+
+    private Long yearly_income; //연소득
+
+    private Long credit_score; //신용등급
+
+    private HouseownType houseown_type; //주거 정보
+
+    private Boolean personal_rehabilitation_yn; //개인회생자 여부
+
+    private Boolean personal_rehabilitation_complete_yn; //개인회생자 납부 여부
+
+    private LoanPurpose loan_purpose; //대출 목적
+}
 
     //TODO: 범주형변수_ 수입유형, 고용유형, 자가소유유형
 /*
@@ -39,5 +62,4 @@ public class CreditCreateRequestDto{
                 .build();
     }
    //many 형성됨
- */
-}
+   */

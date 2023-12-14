@@ -2,13 +2,19 @@ package com.sbb.flexrate.member;
 
 import com.sbb.flexrate.domain.Credit;
 import com.sbb.flexrate.domain.Loan;
+import com.sbb.flexrate.exception.CommonErrorResponse;
+import com.sbb.flexrate.exception.DuplicatedMemberNameException;
+import com.sbb.flexrate.exception.MissingRequestParameterException;
 import com.sbb.flexrate.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.Optional;
@@ -33,7 +39,7 @@ public class SignService {
         //아이디 존재 여부 따라
         if (optionalMember.isEmpty()) {
             // 계정이 존재하지 않을 경우
-            throw new UsernameNotFoundException("잘못된 아이디입니다.");
+            throw new UsernameNotFoundException("존재하지 않는 계정입니다.");
         }
         Member member = optionalMember.get();//계정 존재하는 경우 getMember
 
@@ -45,55 +51,73 @@ public class SignService {
         return SignResponse.builder()
                 .id(member.getId())
                 .account(member.getAccount())
-                .address(member.getAddress())
-                .birth(member.getBirth())
                 .name(member.getName())
                 .email(member.getEmail())
-                .nickname(member.getNickname())
-                .phonenumber(member.getPhonenumber())
+                .birth(member.getBirth())
                 .gender(member.getGender())
+                .nationality(member.getNationality())
+                .phonenumber(member.getPhonenumber())
                 .roles(member.getRoles())
                 .token(jwtProvider.createToken(member.getAccount(), member.getRoles()))
                 .build();
 
     }
 
-    public boolean register(SignRequest request) throws Exception {
+    public boolean register(SignRequest request) {
+        Optional<Member> optionalMember = memberRepository.findByAccount(request.getAccount());
         try {
+            if (optionalMember.isPresent()) {
+                throw new DuplicatedMemberNameException();
+            }
+
+            if (request.getAccount() == null ||
+                    request.getPassword() == null ||
+                    request.getName() == null ||
+                    request.getBirth() == null ||
+                    request.getGender() == null ||
+                    request.getNationality() == null ||
+                    request.getPhonenumber() == null ||
+                    request.getEmail() == null) {
+                throw new MissingRequestParameterException();
+            }
+
+
             Member member = Member.builder()
                     .account(request.getAccount())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .name(request.getName())
-                    .nickname(request.getNickname())
                     .email(request.getEmail())
-                    .address(request.getAddress())
                     .birth(request.getBirth())
                     .phonenumber(request.getPhonenumber())
                     .gender(request.getGender())
+                    .nationality(request.getNationality())
                     .build();
 
-            Credit credit=Credit.builder()
-                            .member(member)
-                                    .build();
+            Credit credit = Credit.builder()
+                    .member(member)
+                    .build();
 
-            Loan loan=Loan.builder()
-                            .member(member)
+            Loan loan = Loan.builder()
+                    .member(member)
                     .birth_year(member.getBirth())
                     .gender(member.getGender())
                     .korea_interest_rate(3.5f)
                     .index_pc(1.223714f)
-                                    .build();
+                    .build();
 
             member.setLoan(loan);
             member.setCredit(credit);
             member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
             memberRepository.save(member);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new Exception("잘못된 요청입니다.");
+
+            return true;
+        } catch(DuplicatedMemberNameException e) {
+            throw new DuplicatedMemberNameException();
+        } catch(MissingRequestParameterException e) {
+            throw new MissingRequestParameterException();
         }
-        return true;
     }
+
 
     public SignResponse getMember(String account) throws Exception {
         Member member = memberRepository.findByAccount(account)

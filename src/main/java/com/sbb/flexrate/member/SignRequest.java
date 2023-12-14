@@ -19,18 +19,18 @@ public class SignRequest {
 
     private String password;
 
-    private String nickname;
-
     private String name;
 
     private String email;
 
-    private Date birth;
+    private String birth;
 
     private Boolean gender;
 
+    private Boolean nationality;
+
     private String phonenumber;
 
-    private String address;
+
 
 }

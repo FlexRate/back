@@ -16,19 +16,17 @@ public class SignResponse {
 
     private String account;
 
-    private String nickname;
-
     private String name;
 
     private String email;
 
-    private Date birth;
+    private String birth;
 
     private Boolean gender;
 
     private String phonenumber;
 
-    private String address;
+    private Boolean nationality;
 
     private List<Authority> roles=new ArrayList<>();
 
@@ -37,13 +35,12 @@ public class SignResponse {
     public SignResponse(Member member){
         this.id=member.getId();
         this.account=member.getAccount();
-        this.address=member.getAddress();
-        this.birth=member.getBirth();
-        this.nickname=member.getNickname();
         this.name=member.getName();
         this.email=member.getEmail();
-        this.phonenumber=member.getPhonenumber();
+        this.birth=member.getBirth();
         this.gender=member.getGender();
+        this.nationality=member.getNationality();
+        this.phonenumber=member.getPhonenumber();
         this.roles=member.getRoles();
     }
 }
