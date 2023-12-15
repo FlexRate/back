@@ -1,7 +1,9 @@
 package com.sbb.flexrate.controller;
 
+import com.sbb.flexrate.dto.CreditInfoDto;
 import com.sbb.flexrate.dto.LoanCreateRequestDto;
 import com.sbb.flexrate.dto.LoanInfoDto;
+import com.sbb.flexrate.dto.LoanResponseDto;
 import com.sbb.flexrate.exception.DataNotFoundException;
 import com.sbb.flexrate.service.LoanService;
 import lombok.Getter;
@@ -16,18 +18,31 @@ import org.springframework.web.bind.annotation.*;
 public class LoanController {
     private final LoanService loanService;
 
-    //get method
-    @GetMapping("/{memberId}")
-    public ResponseEntity<LoanInfoDto> getLoanInfo(@PathVariable("memberId") Long memberId){
+    //post method
+    @PostMapping("/result/{memberId}")
+    public ResponseEntity<?> updateLoan(@PathVariable Long memberId, @RequestBody LoanCreateRequestDto loanDto){
         try {
-            LoanInfoDto loanInfoDto=loanService.getLoanInfo(memberId);
-            return ResponseEntity.ok(loanInfoDto);
-        }catch (DataNotFoundException e){
-            return ResponseEntity.notFound().build();
+            loanService.updateLoan(memberId,loanDto);
+            LoanResponseDto responseDto = mapToResponseDto(loanDto); // Map LoanCreateRequestDto to LoanResponseDto
+            return ResponseEntity.ok(responseDto);
+        } catch (DataNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
-    @PutMapping("/{memberId}")
+    private LoanResponseDto mapToResponseDto(LoanCreateRequestDto loanDto) {
+        LoanResponseDto responseDto = new LoanResponseDto();
+        responseDto.setName(loanDto.getName());
+        responseDto.setInsert_time(loanDto.getInsert_time());
+        responseDto.setLoan_limit(loanDto.getLoan_limit());
+        responseDto.setLoan_initial(loanDto.getLoan_initial());
+        responseDto.setLoan_range_min(loanDto.getLoan_range_min());
+        responseDto.setLoan_range_max(loanDto.getLoan_range_max());
+        return responseDto;
+    }
+}
+/*
+    @PostMapping("/request/{memberId}")
     public ResponseEntity<?> updateLoan(@PathVariable Long memberId, @RequestBody LoanCreateRequestDto loanDto){
         try {
             loanService.updateLoan(memberId,loanDto);
@@ -36,4 +51,4 @@ public class LoanController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-}
+}*/

@@ -30,7 +30,6 @@ public class Member {
     @OneToOne(mappedBy = "member",cascade = CascadeType.ALL)
     private Loan loan;
 
-
     @NonNull
     @Column(unique = true)
     private String account; //토큰 Service 통해 자동 발급

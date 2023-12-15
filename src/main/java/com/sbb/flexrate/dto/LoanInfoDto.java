@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import java.lang.reflect.Member;
 import java.util.Date;
 
 @Getter
@@ -14,32 +15,28 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class LoanInfoDto {
-    private String birth_year;
-    private Boolean gender;
-    private Long yearly_income;
-    private Long loan_cnt;
-    private Long loan_amount;
-    private Long credit_score;
-    private Boolean personal_rehabilitation_yn;
-    private Boolean personal_rehabilitation_complete_yn;
-    private Long company_year;
-    private Float korea_interest_rate ;
-    private Float index_pc;//거시경제지표 pca_상수: 1.223714고정
+
+    private String name;
+
+    private String insert_time;
+
+    private Long loan_limit;
+
+    private Double loan_initial;
+
+    private Double loan_range_min;
+
+    private Double loan_range_max;
 
 
     public static LoanInfoDto from(Loan loan){
         return LoanInfoDto.builder()
-                .birth_year(loan.getBirth_year())
-                .gender(loan.getGender())
-                .yearly_income(loan.getYearly_income())
-                .loan_cnt(loan.getLoan_cnt())
-                .loan_amount(loan.getLoan_amount())
-                .credit_score(loan.getCredit_score())
-                .personal_rehabilitation_yn(loan.getPersonal_rehabilitation_yn())
-                .personal_rehabilitation_complete_yn(loan.getPersonal_rehabilitation_complete_yn())
-                .company_year(loan.getCompany_year())
-                .korea_interest_rate(loan.getKorea_interest_rate())
-                .index_pc(loan.getIndex_pc())
+                .name(loan.getName())
+                .insert_time(loan.getInsert_time())
+                .loan_limit(loan.getLoan_limit())
+                .loan_initial(loan.getLoan_initial())
+                .loan_range_min(loan.getLoan_range_min())
+                .loan_range_max(loan.getLoan_range_max())
                 .build();
     }
 }

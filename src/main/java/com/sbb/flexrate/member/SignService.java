@@ -99,10 +99,7 @@ public class SignService {
 
             Loan loan = Loan.builder()
                     .member(member)
-                    .birth_year(member.getBirth())
-                    .gender(member.getGender())
-                    .korea_interest_rate(3.5f)
-                    .index_pc(1.223714f)
+                    .name(member.getName())
                     .build();
 
             member.setLoan(loan);
