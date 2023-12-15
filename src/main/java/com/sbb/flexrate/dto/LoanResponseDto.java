@@ -24,4 +24,15 @@ public class LoanResponseDto {
 
         private Double loan_range_max;
 
+        private LoanResponseDto LoanResponseDto(LoanCreateRequestDto loanDto) {
+                LoanResponseDto responseDto = new LoanResponseDto();
+                responseDto.setName(loanDto.getName());
+                responseDto.setInsert_time(loanDto.getInsert_time());
+                responseDto.setLoan_limit(loanDto.getLoan_limit());
+                responseDto.setLoan_initial(loanDto.getLoan_initial());
+                responseDto.setLoan_range_min(loanDto.getLoan_range_min());
+                responseDto.setLoan_range_max(loanDto.getLoan_range_max());
+                return responseDto;
+        }
+
 }
