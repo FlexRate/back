@@ -31,13 +31,15 @@ public class LoanService {
     public void updateLoan(Long memberId, LoanCreateRequestDto loanDto) {
         Optional<Member> member = memberRepository.findById(memberId);
         if (member.isPresent()) {
-            Optional<Loan> optionalLoan = loanRepository.findByMemberId(memberId);
+            Optional<Loan> optionalLoan = loanRepository.findByMember(member.get());
             if (optionalLoan.isPresent()) {
                 Loan loan = optionalLoan.get();
 
-                if (loanDto != null && loanDto.getMember() != null) {
-                    loan.setName(loanDto.getMember().getName());
-                }
+//                if (loanDto != null && loanDto.getMember() != null) {
+//                    loan.setName(loanDto.getMember().getName());
+//                }
+
+                loan.setName(member.get().getName());
 
 
                 loan.setInsert_time(loanDto.getInsert_time());
@@ -71,7 +73,7 @@ public class LoanService {
     public void applyLoan(Long memberId, ApplyRequestDto applyDto) {
         Optional<Member> member = memberRepository.findById(memberId);
         if (member.isPresent()) {
-            Optional<Apply> optionalApply = applyRepository.findByMemberId(memberId);
+            Optional<Apply> optionalApply = applyRepository.findByMember(member.get());
             if (optionalApply.isPresent()) {
                 Apply apply = optionalApply.get();
 

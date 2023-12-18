@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ApplyRequestDto {
 
-    private Member member;
-
     private Long loan_request; //대출 금액
 
     private Long loan_repay_term; //대출 상환 기간
