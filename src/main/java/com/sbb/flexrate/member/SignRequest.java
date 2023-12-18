@@ -31,8 +31,5 @@ public class SignRequest {
 
     private String phonenumber;
 
-    private Long creditScore;
-
-
 
 }

@@ -2,6 +2,7 @@ package com.sbb.flexrate.service;
 
 import com.sbb.flexrate.domain.Apply;
 import com.sbb.flexrate.domain.Change;
+import com.sbb.flexrate.domain.Credit;
 import com.sbb.flexrate.domain.Loan;
 import com.sbb.flexrate.dto.DashboardResponseDto;
 import com.sbb.flexrate.exception.DataNotFoundException;
@@ -9,6 +10,7 @@ import com.sbb.flexrate.member.Member;
 import com.sbb.flexrate.member.MemberRepository;
 import com.sbb.flexrate.repository.ApplyRepository;
 import com.sbb.flexrate.repository.ChangeRepository;
+import com.sbb.flexrate.repository.CreditRepository;
 import com.sbb.flexrate.repository.LoanRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ public class DashboardService {
     private final ApplyRepository applyRepository;
     private final ChangeRepository changeRepository;
     private final MemberRepository memberRepository;
+    private final CreditRepository creditRepository;
 
     public DashboardResponseDto getInfo(Long memberId){
         Member member = memberRepository.findById(memberId)
@@ -38,6 +41,9 @@ public class DashboardService {
         Apply apply = applyRepository.findByMember(member)
                 .orElseThrow(() -> new DataNotFoundException("Apply 조회 실패: Member ID " + memberId));
 
+        Credit credit = creditRepository.findByMember(member)
+                .orElseThrow(() -> new DataNotFoundException("credit 조회 실패: Member ID " + memberId));
+
         List<Change> changes = changeRepository.findByMember(member);
 
         return DashboardResponseDto.builder()
@@ -48,7 +54,7 @@ public class DashboardService {
                 .insert_time(loan.getInsert_time())
                 .loan_range_min(loan.getLoan_range_min())
                 .loan_range_max(loan.getLoan_range_max())
-                .creditScore(member.getCreditScore())
+                .creditScore(credit.getCredit_score())
                 .newCreditScore(loan.getNewCreditScore())
                 .changes(changes)
                 .build();
