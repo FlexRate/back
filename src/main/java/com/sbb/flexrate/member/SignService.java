@@ -108,9 +108,9 @@ public class SignService {
                     .build();
 
 
-            member.setLoan(loan);
-            member.setCredit(credit);
-            member.setApply(apply);
+//            member.setLoan(loan);
+//            member.setCredit(credit);
+//            member.setApply(apply);
             member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
             memberRepository.save(member);
 
