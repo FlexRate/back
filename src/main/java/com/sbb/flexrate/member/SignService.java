@@ -6,6 +6,9 @@ import com.sbb.flexrate.domain.Loan;
 import com.sbb.flexrate.exception.CommonErrorResponse;
 import com.sbb.flexrate.exception.DuplicatedMemberNameException;
 import com.sbb.flexrate.exception.MissingRequestParameterException;
+import com.sbb.flexrate.repository.ApplyRepository;
+import com.sbb.flexrate.repository.CreditRepository;
+import com.sbb.flexrate.repository.LoanRepository;
 import com.sbb.flexrate.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,9 @@ import java.util.Optional;
 public class SignService {
 
     private final MemberRepository memberRepository;
+    private final ApplyRepository applyRepository;
+    private final LoanRepository loanRepository;
+    private final CreditRepository  creditRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
 
@@ -113,6 +119,10 @@ public class SignService {
 //            member.setApply(apply);
             member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
             memberRepository.save(member);
+
+            creditRepository.save(credit);
+            loanRepository.save(loan);
+            applyRepository.save(apply);
 
             return true;
         } catch(DuplicatedMemberNameException e) {
