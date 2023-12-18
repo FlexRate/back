@@ -15,15 +15,25 @@ import org.springframework.web.bind.annotation.*;
 public class LoanController {
     private final LoanService loanService;
 
-    //post method
-    @PostMapping("/result/{memberId}")
-    public ResponseEntity<?> updateLoan(@PathVariable Long memberId, @RequestBody LoanCreateRequestDto loanDto) {
+    //put method
+//    @PutMapping("/result/{memberId}")
+//    public ResponseEntity<?> updateLoan(@PathVariable Long memberId, @RequestBody LoanCreateRequestDto loanDto) {
+//        try {
+//            loanService.updateLoan(memberId, loanDto);
+//            LoanResponseDto responseDto = mapToResponseDto(loanDto); // Map LoanCreateRequestDto to LoanResponseDto
+//            return ResponseEntity.ok(responseDto);
+//        } catch (DataNotFoundException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+//        }
+//    }
+    @PutMapping("/result/{memberId}")
+    public ResponseEntity<LoanResponseDto> updateLoan(@PathVariable Long memberId, @RequestBody LoanCreateRequestDto loanDto) {
         try {
             loanService.updateLoan(memberId, loanDto);
             LoanResponseDto responseDto = mapToResponseDto(loanDto); // Map LoanCreateRequestDto to LoanResponseDto
             return ResponseEntity.ok(responseDto);
         } catch (DataNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 

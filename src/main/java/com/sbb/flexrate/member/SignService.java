@@ -1,20 +1,17 @@
 package com.sbb.flexrate.member;
 
+import com.sbb.flexrate.domain.Change;
 import com.sbb.flexrate.domain.Credit;
 import com.sbb.flexrate.domain.Loan;
-import com.sbb.flexrate.exception.CommonErrorResponse;
 import com.sbb.flexrate.exception.DuplicatedMemberNameException;
 import com.sbb.flexrate.exception.MissingRequestParameterException;
 import com.sbb.flexrate.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.Optional;
