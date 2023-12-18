@@ -16,7 +16,7 @@ public class LoanController {
     private final LoanService loanService;
 
     //post method
-    @PostMapping("/result/{memberId}")
+    @PutMapping("/result/{memberId}")
     public ResponseEntity<?> updateLoan(@PathVariable Long memberId, @RequestBody LoanCreateRequestDto loanDto) {
         try {
             loanService.updateLoan(memberId, loanDto);
