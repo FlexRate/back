@@ -13,8 +13,6 @@ import java.util.Date;
 @Builder
 public class LoanCreateRequestDto {
 
-    private Member member;
-
     private String name;
 
     private String insert_time;
