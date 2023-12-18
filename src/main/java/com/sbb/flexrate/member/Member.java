@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.sbb.flexrate.domain.Apply;
+import com.sbb.flexrate.domain.Change;
 import com.sbb.flexrate.domain.Credit;
 import com.sbb.flexrate.domain.Loan;
 import lombok.*;
@@ -30,6 +31,9 @@ public class Member {
 
     @OneToOne(mappedBy = "member",cascade = CascadeType.ALL)
     private Loan loan;
+
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Change> change;
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private  Apply apply;
