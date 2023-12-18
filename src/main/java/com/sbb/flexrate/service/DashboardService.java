@@ -48,6 +48,8 @@ public class DashboardService {
                 .insert_time(loan.getInsert_time())
                 .loan_range_min(loan.getLoan_range_min())
                 .loan_range_max(loan.getLoan_range_max())
+                .creditScore(member.getCreditScore())
+                .newCreditScore(loan.getNewCreditScore())
                 .changes(changes)
                 .build();
     }

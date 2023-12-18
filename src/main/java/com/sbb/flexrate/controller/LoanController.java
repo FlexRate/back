@@ -35,6 +35,7 @@ public class LoanController {
         responseDto.setLoan_initial(loanDto.getLoan_initial());
         responseDto.setLoan_range_min(loanDto.getLoan_range_min());
         responseDto.setLoan_range_max(loanDto.getLoan_range_max());
+        responseDto.setNewCreditScore(loanDto.getNewCreditScore());
         return responseDto;
     }
 

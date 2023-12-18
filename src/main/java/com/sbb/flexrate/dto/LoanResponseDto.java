@@ -24,6 +24,8 @@ public class LoanResponseDto {
 
         private Double loan_range_max;
 
+        private Long newCreditScore;
+
         private LoanResponseDto LoanResponseDto(LoanCreateRequestDto loanDto) {
                 LoanResponseDto responseDto = new LoanResponseDto();
                 responseDto.setName(loanDto.getName());

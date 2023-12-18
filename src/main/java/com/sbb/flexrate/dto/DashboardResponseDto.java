@@ -30,4 +30,8 @@ public class DashboardResponseDto {
     private Double loan_range_max; //금리 범위 최대값
 
     private List<Change> changes; //변동 리스트
+
+    private Long creditScore;
+
+    private Long newCreditScore;
 }

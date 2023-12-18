@@ -63,6 +63,9 @@ public class Member {
     @NonNull
     private String email;
 
+    @NonNull
+    private Long creditScore;
+
     //fetch_속성 데이터 어떻게 로드 할 지_즉시 로드
     //Lazy: 실제로 데이터에 접근할 때까지 로드하지 않음
     @OneToMany(mappedBy = "member",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
