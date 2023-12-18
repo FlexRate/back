@@ -44,6 +44,9 @@
         @Column
         private Double loan_range_max; //금리 범위 최대값
 
+        @Column
+        private Long newCreditScore;
+
 //        public static Loan from(LoanCreateRequestDto loanDto){
 //            return Loan.builder()
 //                    .name(loanDto.getName())

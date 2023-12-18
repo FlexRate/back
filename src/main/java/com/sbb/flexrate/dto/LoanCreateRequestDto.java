@@ -24,4 +24,6 @@ public class LoanCreateRequestDto {
     private Double loan_range_min;
 
     private Double loan_range_max;
+
+    private Long newCreditScore;
 }

@@ -45,6 +45,7 @@ public class LoanService {
                 loan.setLoan_initial(loanDto.getLoan_initial());
                 loan.setLoan_range_min(loanDto.getLoan_range_min());
                 loan.setLoan_range_max(loanDto.getLoan_range_max());
+                loan.setNewCreditScore(loanDto.getNewCreditScore());
 
                 loanRepository.save(loan);
 
