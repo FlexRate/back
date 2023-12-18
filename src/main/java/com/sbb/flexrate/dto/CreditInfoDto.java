@@ -44,6 +44,7 @@ public class CreditInfoDto {//마이페이지 credit 정보
                 .employment_type(credit.getEmployment_type())
                 .company_enter_month(credit.getCompany_enter_month())
                 .academic_ability_school(credit.getAcademic_ability_school())
+                .academic_ability(credit.getAcademic_ability())
                 .yearly_income(credit.getYearly_income())
                 .credit_score(credit.getCredit_score())
                 .houseown_type(credit.getHouseown_type())

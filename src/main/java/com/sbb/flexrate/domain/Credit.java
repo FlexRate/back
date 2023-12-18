@@ -70,6 +70,7 @@ public class Credit {
                 .employment_type(creditDto.getEmployment_type())
                 .company_enter_month(creditDto.getCompany_enter_month())
                 .academic_ability_school(creditDto.getAcademic_ability_school())
+                .academic_ability(creditDto.getAcademic_ability())
                 .yearly_income(creditDto.getYearly_income())
                 .credit_score(creditDto.getCredit_score())
                 .houseown_type(creditDto.getHouseown_type())

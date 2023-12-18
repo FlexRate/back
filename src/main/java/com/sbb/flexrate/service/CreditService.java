@@ -48,6 +48,7 @@ public class CreditService {
                 credit.setEmployment_type(creditDto.getEmployment_type());
                 credit.setCompany_enter_month(creditDto.getCompany_enter_month());
                 credit.setAcademic_ability_school(creditDto.getAcademic_ability_school());
+                credit.setAcademic_ability(creditDto.getAcademic_ability());
                 credit.setYearly_income(creditDto.getYearly_income());
                 credit.setCredit_score(creditDto.getCredit_score());
                 credit.setHouseown_type(creditDto.getHouseown_type());
