@@ -17,7 +17,8 @@
     @Table(name="loan")
     public class Loan {
 
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name="loan_id")
         private Long id;
 

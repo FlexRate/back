@@ -41,7 +41,7 @@ public class CreditService {
     public void updateCredit(Long memberId,CreditCreateRequestDto creditDto){
         Optional<Member> member=memberRepository.findById(memberId);
         if(member.isPresent()){
-            Optional<Credit> optionalCredit=creditRepository.findByMemberId(memberId);
+            Optional<Credit> optionalCredit=creditRepository.findByMember(member.get());
             if(optionalCredit.isPresent()){
                 Credit credit=optionalCredit.get();
                 credit.setBusiness_type(creditDto.getBusiness_type());

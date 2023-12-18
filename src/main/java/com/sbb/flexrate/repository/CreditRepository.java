@@ -10,4 +10,6 @@ import java.util.Optional;
 
 public interface CreditRepository extends JpaRepository<Credit,Long> {
    Optional<Credit> findByMemberId(Long memberId);//사용자 아이디 기반 credit 정보 조회
+
+   Optional<Credit> findByMember(Member member);
 }

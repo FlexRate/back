@@ -23,7 +23,8 @@ import java.util.List;
 @Table(name="credit")
 public class Credit {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "credit_id")
     private Long id;
 
