@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/main")//aws 임시 main
+@Api
 public class MainController {
 
     private final DashboardService dashboardService;

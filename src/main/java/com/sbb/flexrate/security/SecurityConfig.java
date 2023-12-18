@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,6 +52,7 @@ public class SecurityConfig {
                 .antMatchers("/admin").hasRole("ADMIN")
                 // /user 로 시작하는 요청은 USER 권한이 있는 유저에게만 허용
                 .antMatchers("/**").hasRole("USER")
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**","/swagger-ui/springfox.js").permitAll()
                 .anyRequest().denyAll() //이래도 되나
                 .and()
                 //cors 설정
@@ -112,10 +114,26 @@ public class SecurityConfig {
 
         return http.build();
     }
-
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers(
+                /* swagger v2 */
+                "/v2/api-docs",
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/ui",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**",
+                /* swagger v3 */
+                "/v3/api-docs/**",
+                "/swagger-ui/**");
+    }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         //{noop}asd34d*^ 과 같이 password 앞에 encoding 방식 붙은 채로 저장-> 엄호화 방식 지정 저장 가능
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.sbb.flexrate.controller;
 import com.sbb.flexrate.dto.*;
 import com.sbb.flexrate.exception.DataNotFoundException;
 import com.sbb.flexrate.service.LoanService;
+import io.swagger.annotations.Api;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/loan")
+@Api
 public class LoanController {
     private final LoanService loanService;
 

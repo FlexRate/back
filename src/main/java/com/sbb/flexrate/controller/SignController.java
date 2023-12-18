@@ -4,6 +4,7 @@ import com.sbb.flexrate.member.MemberRepository;
 import com.sbb.flexrate.member.SignRequest;
 import com.sbb.flexrate.member.SignResponse;
 import com.sbb.flexrate.member.SignService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Validated
+@Api
 public class SignController {
 
     private final MemberRepository memberRepository;

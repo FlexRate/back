@@ -8,6 +8,7 @@ import com.sbb.flexrate.member.Member;
 import com.sbb.flexrate.exception.DataNotFoundException;
 import com.sbb.flexrate.service.CreditService;
 import com.sbb.flexrate.repository.CreditRepository;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/credit")
+@Api
 public class CreditController {
     private final CreditService creditService;
 
