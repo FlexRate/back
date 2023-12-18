@@ -70,6 +70,7 @@ public class SignService {
 
     }
 
+    @Transactional
     public boolean register(SignRequest request) {
         Optional<Member> optionalMember = memberRepository.findByAccount(request.getAccount());
         try {
