@@ -85,8 +85,7 @@ public class SignService {
                     request.getGender() == null ||
                     request.getNationality() == null ||
                     request.getPhonenumber() == null ||
-                    request.getEmail() == null ||
-                    request.getCreditScore() == null)
+                    request.getEmail() == null )
             {
                 throw new MissingRequestParameterException();
             }
@@ -101,7 +100,6 @@ public class SignService {
                     .phonenumber(request.getPhonenumber())
                     .gender(request.getGender())
                     .nationality(request.getNationality())
-                    .creditScore(request.getCreditScore())
                     .build();
 
             Credit credit = Credit.builder()
