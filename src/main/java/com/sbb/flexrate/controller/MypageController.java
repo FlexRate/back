@@ -16,7 +16,7 @@ public class MypageController {
     private final MypageService mypageService;
 
     @GetMapping("/{memberId}")
-    public ResponseEntity<MypageResponseDto> getMypageInfo(@PathVariable Long memberId, @RequestBody MemberRepository memberRepository){
+    public ResponseEntity<MypageResponseDto> getMypageInfo(@PathVariable Long memberId){
         try {
             MypageResponseDto mypageResponseDto=mypageService.getMypageInfo(memberId);
             return ResponseEntity.ok(mypageResponseDto);
