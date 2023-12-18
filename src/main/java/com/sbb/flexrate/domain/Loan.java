@@ -44,16 +44,16 @@
         @Column
         private Double loan_range_max; //금리 범위 최대값
 
-        public static Loan from(LoanCreateRequestDto loanDto){
-            return Loan.builder()
-                    .name(loanDto.getName())
-                    .insert_time(loanDto.getInsert_time())
-                    .loan_limit(loanDto.getLoan_limit())
-                    .loan_initial(loanDto.getLoan_initial())
-                    .loan_range_min(loanDto.getLoan_range_min())
-                    .loan_range_max(loanDto.getLoan_range_max())
-                    .build();
-        }
+//        public static Loan from(LoanCreateRequestDto loanDto){
+//            return Loan.builder()
+//                    .name(loanDto.getName())
+//                    .insert_time(loanDto.getInsert_time())
+//                    .loan_limit(loanDto.getLoan_limit())
+//                    .loan_initial(loanDto.getLoan_initial())
+//                    .loan_range_min(loanDto.getLoan_range_min())
+//                    .loan_range_max(loanDto.getLoan_range_max())
+//                    .build();
+//        }
     }
 
     /*

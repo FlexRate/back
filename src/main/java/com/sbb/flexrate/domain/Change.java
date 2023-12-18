@@ -31,13 +31,13 @@ public class Change {
     @Column
     private Double change_loan_initial;
 
-    public void updateFromLoan(Loan loan,ChangeRepository changeRepository) {
-        Change newChange=Change.builder()
-                .member(loan.getMember())
-                .change_insert_time(loan.getInsert_time())
-                .change_loan_initial(loan.getLoan_initial())
-                .build();
-
-        changeRepository.save(newChange);
-    }
+//    public void updateFromLoan(Loan loan,ChangeRepository changeRepository) {
+//        Change newChange=Change.builder()
+//                .member(loan.getMember())
+//                .change_insert_time(loan.getInsert_time())
+//                .change_loan_initial(loan.getLoan_initial())
+//                .build();
+//
+//        changeRepository.save(newChange);
+//    }
 }

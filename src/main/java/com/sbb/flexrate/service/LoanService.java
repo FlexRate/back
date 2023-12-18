@@ -40,27 +40,44 @@ public class LoanService {
 //                }
 
                 loan.setName(member.get().getName());
-
-
                 loan.setInsert_time(loanDto.getInsert_time());
                 loan.setLoan_limit(loanDto.getLoan_limit());
                 loan.setLoan_initial(loanDto.getLoan_initial());
                 loan.setLoan_range_min(loanDto.getLoan_range_min());
                 loan.setLoan_range_max(loanDto.getLoan_range_max());
 
-                Optional<Change> optionalChange=changeRepository.findByMemberId(memberId);
-                Change change;
-                if(optionalChange.isPresent()){
-                    change=optionalChange.get();
-                    change.updateFromLoan(loan,changeRepository);
-                }else{
-                    change = Change.builder().member(member.get()).build();
-                    change.updateFromLoan(loan, changeRepository);
-
-                }
-
-
                 loanRepository.save(loan);
+
+//                Optional<Change> optionalChange=changeRepository.findByMemberId(memberId);
+
+                Change change = Change.builder()
+                        .member(member.get())
+                        .change_insert_time(loan.getInsert_time())
+                        .change_loan_initial(loan.getLoan_initial())
+                        .build();
+                changeRepository.save(change);
+
+//                change.updateFromLoan(loan, changeRepository);
+//
+//                public void updateFromLoan(Loan loan,ChangeRepository changeRepository) {
+//                    Change newChange=Change.builder()
+//                            .member(loan.getMember())
+//                            .change_insert_time(loan.getInsert_time())
+//                            .change_loan_initial(loan.getLoan_initial())
+//                            .build();
+//
+//                    changeRepository.save(newChange);
+//                }
+
+//                if(optionalChange.isPresent()){
+//                    change=optionalChange.get();
+//                    change.updateFromLoan(loan,changeRepository);
+//                }else{
+//                    change = Change.builder().member(member.get()).build();
+//                    change.updateFromLoan(loan, changeRepository);
+//
+//                }
+
             } else {
                 System.out.println(memberId);
                 throw new DataNotFoundException("해당 Member의 Loan 조회 실패");
