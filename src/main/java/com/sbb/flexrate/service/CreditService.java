@@ -68,8 +68,9 @@ public class CreditService {
     public CreditInfoDto getCreditInfo(Long memberId){
         Optional<Member> member=memberRepository.findById(memberId);
         if(member.isPresent()){
-            Credit credit=member.get().getCredit();;
-            return CreditInfoDto.from(credit);
+            Optional<Credit> credit = creditRepository.findByMemberId(memberId);
+//            Credit credit=member.get().getCredit();
+            return CreditInfoDto.from(credit.get());
         }else throw new DataNotFoundException("Member 조회 실패");
     }
 }

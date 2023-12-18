@@ -26,17 +26,17 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy ="member",cascade = CascadeType.ALL) //변경사항 모두 반영
-    private Credit credit;
-
-    @OneToOne(mappedBy = "member",cascade = CascadeType.ALL)
-    private Loan loan;
-
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Change> change;
-
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-    private  Apply apply;
+//    @OneToOne(mappedBy ="member",cascade = CascadeType.ALL) //변경사항 모두 반영
+//    private Credit credit;
+//
+//    @OneToOne(mappedBy = "member",cascade = CascadeType.ALL)
+//    private Loan loan;
+//
+//    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Change> change;
+//
+//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+//    private  Apply apply;
 
     @NonNull
     @Column(unique = true)
