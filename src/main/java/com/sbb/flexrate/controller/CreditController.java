@@ -54,7 +54,7 @@ public class CreditController {
 
  */
 
-    @GetMapping("/{memberId}")
+    @GetMapping("/get/{memberId}")
     public ResponseEntity<CreditInfoDto> getCreditInfo(@PathVariable("memberId") Long memberId){
         try {
             CreditInfoDto creditInfoDto=creditService.getCreditInfo(memberId);
@@ -64,7 +64,7 @@ public class CreditController {
         }
     }
 
-    @PutMapping("/{memberId}")
+    @PutMapping("/put/{memberId}")
     public ResponseEntity<?> updateCredit(@PathVariable Long memberId, @RequestBody CreditCreateRequestDto creditDto){
         try {
             creditService.updateCredit(memberId,creditDto);
