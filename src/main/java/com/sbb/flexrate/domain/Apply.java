@@ -1,10 +1,10 @@
 package com.sbb.flexrate.domain;
 
+import com.sbb.flexrate.dto.ApplyRequestDto;
 import com.sbb.flexrate.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -25,18 +25,17 @@ public class Apply {
     private Member member;
 
     @Column
-    private Long name; //성명
+    private Long loan_request; //대출 금액
 
     @Column
-    private Date insert_time; //대출 심사 일자
+    private Long loan_repay_term; //대출 상환 기간
 
-    @Column
-    private Long loan_limit; //대출 가능 한도
+    public static Apply from(ApplyRequestDto applyRequestDto){
+        return Apply.builder()
+                .loan_request(applyRequestDto.getLoan_request())
+                .loan_repay_term(applyRequestDto.getLoan_repay_term())
+                .build();
+    }
 
-    @Column
-    private Long loan_initial; //초기 대출 금리
-
-    @Column
-    private Long loan_range; //금리 범위
 
 }

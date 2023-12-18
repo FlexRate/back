@@ -1,12 +1,15 @@
 package com.sbb.flexrate.service;
 
+import com.sbb.flexrate.domain.Apply;
 import com.sbb.flexrate.domain.Loan;
+import com.sbb.flexrate.dto.ApplyResponseDto;
 import com.sbb.flexrate.dto.LoanCreateRequestDto;
 import com.sbb.flexrate.dto.LoanInfoDto;
 import com.sbb.flexrate.dto.ApplyRequestDto;
 import com.sbb.flexrate.exception.DataNotFoundException;
 import com.sbb.flexrate.member.Member;
 import com.sbb.flexrate.member.MemberRepository;
+import com.sbb.flexrate.repository.ApplyRepository;
 import com.sbb.flexrate.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ import java.util.Optional;
 public class LoanService {
     private final LoanRepository loanRepository;
     private final MemberRepository memberRepository;
+    private final ApplyRepository applyRepository;
 
     public void updateLoan(Long memberId, LoanCreateRequestDto loanDto) {
         Optional<Member> member = memberRepository.findById(memberId);
@@ -28,7 +32,6 @@ public class LoanService {
             if (optionalLoan.isPresent()) {
                 Loan loan = optionalLoan.get();
 
-                // Check if loanDto and its member are not null before accessing properties
                 if (loanDto != null && loanDto.getMember() != null) {
                     loan.setName(loanDto.getMember().getName());
                 }
@@ -53,20 +56,38 @@ public class LoanService {
     public void applyLoan(Long memberId, ApplyRequestDto applyDto) {
         Optional<Member> member = memberRepository.findById(memberId);
         if (member.isPresent()) {
-            Optional<Loan> optionalLoan = loanRepository.findByMemberId(memberId);
-            if (optionalLoan.isPresent()) {
-                Loan loan = optionalLoan.get();
+            Optional<Apply> optionalApply = applyRepository.findByMemberId(memberId);
+            if (optionalApply.isPresent()) {
+                Apply apply = optionalApply.get();
 
+                apply.setLoan_request(applyDto.getLoan_request());
+                apply.setLoan_repay_term(applyDto.getLoan_repay_term());
+
+                applyRepository.save(apply);
+
+            } else {
+                System.out.println(memberId);
+                throw new DataNotFoundException("해당 Member의 Loan 조회 실패");
             }
+        }
+        else{
+            throw new DataNotFoundException("Member 조회 실패");
         }
     }
 
-
-    public LoanInfoDto getLoanInfo(Long memberId){
-        Optional<Member> member=memberRepository.findById(memberId);
-        if(member.isPresent()){
-            Loan loan=member.get().getLoan();
+    public LoanInfoDto getLoanInfo (Long memberId){
+        Optional<Member> member = memberRepository.findById(memberId);
+        if (member.isPresent()) {
+            Loan loan = member.get().getLoan();
             return LoanInfoDto.from(loan);
         }else throw new DataNotFoundException("Member 조회 실패");
     }
-}
+
+    public ApplyResponseDto getApplyInfo (Long memberId){
+        Optional<Member> member = memberRepository.findById(memberId);
+        if (member.isPresent()) {
+            Apply apply = member.get().getApply();
+            return ApplyResponseDto.from(apply);
+        } else throw new DataNotFoundException("Member 조회 실패");
+    }
+    }

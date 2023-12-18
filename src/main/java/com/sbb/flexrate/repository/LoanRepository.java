@@ -1,6 +1,5 @@
 package com.sbb.flexrate.repository;
 
-import com.sbb.flexrate.domain.Credit;
 import com.sbb.flexrate.domain.Loan;
 import org.springframework.data.jpa.repository.JpaRepository;
 

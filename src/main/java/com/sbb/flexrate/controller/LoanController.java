@@ -38,6 +38,16 @@ public class LoanController {
         return responseDto;
     }
 
+    @PostMapping("/request/{memberId}")
+    public ResponseEntity<?> applyLoan(@PathVariable Long memberId,@RequestBody ApplyRequestDto applyDto){
+        try{
+            loanService.applyLoan(memberId, applyDto);
+            return new ResponseEntity<>(loanService.getApplyInfo(memberId), HttpStatus.OK);
+        }catch (DataNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 
 /*    @PostMapping("/request/{memberId}")
     public ResponseEntity<?> applyLoan(@PathVariable Long memberId, @RequestBody ApplyRequestDto applyDto){

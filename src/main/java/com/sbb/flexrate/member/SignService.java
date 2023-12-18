@@ -1,5 +1,6 @@
 package com.sbb.flexrate.member;
 
+import com.sbb.flexrate.domain.Apply;
 import com.sbb.flexrate.domain.Credit;
 import com.sbb.flexrate.domain.Loan;
 import com.sbb.flexrate.exception.CommonErrorResponse;
@@ -102,8 +103,14 @@ public class SignService {
                     .name(member.getName())
                     .build();
 
+            Apply apply = Apply.builder()
+                    .member(member)
+                    .build();
+
+
             member.setLoan(loan);
             member.setCredit(credit);
+            member.setApply(apply);
             member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
             memberRepository.save(member);
 
