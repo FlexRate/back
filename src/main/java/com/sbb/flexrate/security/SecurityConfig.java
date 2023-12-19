@@ -59,7 +59,7 @@ public class SecurityConfig {
                                 // Cors 허용 패턴
                                 CorsConfiguration config = new CorsConfiguration();
                                 config.setAllowedOrigins(
-                                        List.of("http://localhost:5173", "http://localhost:8080")
+                                        List.of("http://localhost:5173", "http://localhost:8080","https://flex-rate.vercel.app","https://flexrate.site","https://www.flexrate.site")
                                 );
                                 config.setAllowedMethods(
                                         List.of("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS")
